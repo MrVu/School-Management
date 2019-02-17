@@ -1,0 +1,40 @@
+{% extends 'admin/admin_base.html' %}
+{% block content %}
+<form class="well form-horizontal" action=" " method="post"  id="contact_form">
+<fieldset>
+{{ class_pick.csrf_token }}
+<!-- Form Name -->
+<legend>CHOOSE A CLASS</legend>
+
+
+
+<!-- Select Basic -->
+
+<div class="form-group">
+  <label class="col-md-4 control-label">Class</label>
+    <div class="col-md-4 selectContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+    <select name="subject" class="form-control selectpicker" >
+      <option value=" " >Please select student's class</option>
+        {% for subject in subjects %}
+      <option>{{ subject.name }}</option>
+      {% endfor %}
+
+    </select>
+  </div>
+</div>
+</div>
+
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+      {{ class_pick.submit(class="btn btn-warning") }}
+  </div>
+</div>
+
+</fieldset>
+</form>
+{% endblock %}

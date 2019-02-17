@@ -1,0 +1,37 @@
+{% extends 'admin/admin_base.html' %}
+{% block content %}
+<div class="col-md-10">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Address</th>
+            <th scope="col">Class</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+        <tr>
+            <th scope="row">{{student.id}}</th>
+            <td>{{student.name}}</td>
+            <td>{{student.phone_number}}</td>
+            <td>{{ student.address }}</td>
+            <td>{{ student.subject.name }}</td>
+            <td>
+                <form method="post">
+                <input name="{{ student.id }}" type="checkbox" checked data-toggle="toggle"> Absent
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <form class="well form-horizontal" action=" " method="post"  id="contact_form">
+        {{ form.csrf_token }}
+        {{ form.submit(class="btn btn-success") }}
+    </form>
+
+</div>
+{% endblock %}

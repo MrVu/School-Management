@@ -1,0 +1,52 @@
+{% extends 'admin/admin_base.html' %}
+{% block content %}
+<form class="well form-horizontal" action=" " method="post"  id="contact_form">
+<fieldset>
+
+<!-- Form Name -->
+<legend>SELECT DATE AND CLASS</legend>
+
+{{ student_form.csrf_token }}
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label">Address</label>
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+        {{ student_form.address(class="form-control", placeholder="Address") }}
+    </div>
+  </div>
+</div>
+
+
+<!-- Select Basic -->
+
+<div class="form-group">
+  <label class="col-md-4 control-label">State</label>
+    <div class="col-md-4 selectContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+    <select name="subject" class="form-control selectpicker" >
+      <option value=" " >Please select student class</option>
+        {% for subject in subjects %}
+      <option>{{ subject.name }}</option>
+      {% endfor %}
+
+    </select>
+  </div>
+</div>
+</div>
+
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+      {{ student_form.submit(class="btn btn-warning") }}
+  </div>
+</div>
+
+</fieldset>
+</form>
+{% endblock %}
