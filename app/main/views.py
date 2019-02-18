@@ -4,6 +4,8 @@ from .forms import SubjectsAdd, StudentForm, AttendanceClass, AttendanceForm, At
 from . import main
 from app.models import Subject, User, Student, Attendance
 from app import db
+from datetime import datetime
+import time
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -133,26 +135,39 @@ def newAttendance():
 @main.route('/admin/newattendance/<int:id>', methods=['GET', 'POST'])
 @login_required
 def newAttendanceQuery(id):
-    students= Student.query.filter_by(subject_id=id).all()
+    students = Student.query.filter_by(subject_id=id).all()
     current_subject = Subject.query.get(id)
     form = AttendanceForm()
     if form.validate_on_submit():
         for student in students:
-            absent=request.form.get(student.id)
-            attendance = Attendance(student=student, absent=absent, subject= current_subject)
+            absent = request.form.get(student.id)
+            attendance = Attendance(student=student, absent=absent, subject=current_subject)
             db.session.add(attendance)
         db.session.commit()
         return redirect(url_for('main.index'))
-    return render_template('admin/attendanceform.html', form=form ,students=students)
+    return render_template('admin/attendanceform.html', form=form, students=students)
 
-@main.route('/admin/attendancequery')
+
+@main.route('/admin/attendancequery', methods=['GET', 'POST'])
 @login_required
 def attendanceQuery():
-    form =AttendanceQuery()
+    form = AttendanceQuery()
     subjects = Subject.query.all()
     if form.validate_on_submit():
         subject = Subject.query.filter_by(name=request.form.get('subject')).first()
-        raw_date= form.date.data
-        return redirect(url_for('main.getAttendances', id= subject.id, date=raw_date))
-    return render_template('admin/attendances.html', subjects=subjects)
+        raw_date = form.date.data
+        return redirect(url_for('main.getAttendance', id=subject.id, raw_date=raw_date))
+    return render_template('admin/attendance_query.html', subjects=subjects, form=form)
+
+
+@main.route('/admin/attendance/<int:id>/<raw_date>')
+@login_required
+def getAttendance(id, raw_date):
+    date_plit = raw_date.split('-')
+    date_query = datetime(year=int(date_plit[2]), month=int(date_plit[1]), day=int(date_plit[0]))
+    print(date_query)
+    attendances = Attendance.query.filter(Attendance.subject_id==id,Attendance.date == date_query).all()
+    print(attendances)
+    return render_template('admin/attendances.html', attendances=attendances)
+
 # ----- END ATTENDANCE VIEWS -----#

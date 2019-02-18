@@ -6,15 +6,15 @@
 <!-- Form Name -->
 <legend>SELECT DATE AND CLASS</legend>
 
-{{ student_form.csrf_token }}
+{{ form.csrf_token }}
 <!-- Text input-->
 
 <div class="form-group">
-  <label class="col-md-4 control-label">Address</label>
+  <label class="col-md-4 control-label">Date</label>
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-        {{ student_form.address(class="form-control", placeholder="Address") }}
+        {{ form.date(class="form-control", placeholder="dd-mm-yy") }}
     </div>
   </div>
 </div>
@@ -43,7 +43,8 @@
 <div class="form-group">
   <label class="col-md-4 control-label"></label>
   <div class="col-md-4">
-      {{ student_form.submit(class="btn btn-warning") }}
+      {{ form.submit(class="btn btn-warning") }}
+      <a href="{{ url_for('main.newAttendance') }}" class="btn btn-success">New</a>
   </div>
 </div>
 

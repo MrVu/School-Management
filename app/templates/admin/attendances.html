@@ -5,25 +5,27 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Class</th>
+      <th scope="col">Student</th>
       <th scope="col"> Date</th>
+      <th scope="col">Class</th>
+      <th scope="col">Absent</th>
     </tr>
   </thead>
   <tbody>
   {% for attendance in attendances %}
     <tr>
       <th scope="row">{{attendance.id}}</th>
-      <td>{{attendance.subject}}</td>
-      <td>{{attendance.date}}</td>
+      <td>{{attendance.student.name}}</td>
+      <td>{{attendance.date.date()}}</td>
+      <td>{{attendance.subject.name}}</td>
+      <td>{{attendance.absent}}</td>
       <td>
-        <a class="btn btn-danger" href="#">Delete</a>
-        <a class="btn btn-success" href="#">Edit</a>
       </td>
     </tr>
   {% endfor %}
   </tbody>
 </table>
-  <a href="#" class="btn btn-primary">New Attendance</a>
+  <a href="{{ url_for('main.newAttendance') }}" class="btn btn-primary">New Attendance</a>
 
 </div>
 {% endblock %}

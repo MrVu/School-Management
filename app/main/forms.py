@@ -20,4 +20,4 @@ class AttendanceForm(FlaskForm):
 
 class AttendanceQuery(FlaskForm):
     date = StringField('Date')
-    submit= SubmitField('Submit')
+    submit= SubmitField('Search')
