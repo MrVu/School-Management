@@ -1,12 +1,22 @@
-from flask import render_template, session, redirect, url_for, request, sessions
+from flask import render_template, session, redirect, url_for, request, sessions,flash
 from flask_login import login_required, logout_user, login_user, current_user
 from .forms import SubjectsAdd, StudentForm, AttendanceClass, AttendanceForm, AttendanceQuery
 from . import main
 from app.models import Subject, User, Student, Attendance
 from app import db
 from datetime import datetime
-import time
 
+from functools import wraps
+
+def admin_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if current_user.role == "admin":
+            return f(*args, **kwargs)
+        else:
+            flash("You need to be an admin to view this page.")
+            return redirect(url_for('main.index'))
+    return wrap
 
 @main.route('/', methods=['GET', 'POST'])
 @login_required
