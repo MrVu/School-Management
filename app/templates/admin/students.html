@@ -1,14 +1,14 @@
 {% extends 'admin/admin_base.html' %}
 {% block content %}
 <div class="col-md-10">
-  <form class="form-inline">
-  <div class="form-group mx-sm-3 mb-2">
-    <label class="sr-only">Class</label>
-    <input class="form-control"  placeholder="Search">
+<div class="form-group">
+    <div class="col-md-4">
+    <div class="input-group">
+      <input type="search" class="light-table-filter form-control" data-table="order-table" placeholder="Search">
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary mb-2">Search</button>
-</form>
-<table class="table">
+</div>
+<table class="order-table table">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
