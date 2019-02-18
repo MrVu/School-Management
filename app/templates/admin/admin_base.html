@@ -72,8 +72,8 @@
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="#"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a>
                             </li>
-                            <li><a href="#"><span class="glyphicon glyphicon-plane"></span> Active Link</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-cloud"></span> Link</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-plane"></span> Book</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-cloud"></span> Admin</a></li>
 
                             <!-- Dropdown-->
                             <li class="panel panel-default" id="dropdown">
@@ -89,22 +89,6 @@
                                             <li><a href="{{ url_for('main.getStudents') }}">Học viên</a></li>
                                             <li><a href="{{ url_for('main.attendanceQuery') }}">Điểm danh</a></li>
 
-                                            <!-- Dropdown level 2 -->
-                                            <li class="panel panel-default" id="dropdown">
-                                                <a data-toggle="collapse" href="#dropdown-lvl2">
-                                                    <span class="glyphicon glyphicon-off"></span>Giáo viên<span
-                                                        class="caret"></span>
-                                                </a>
-                                                <div id="dropdown-lvl2" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <ul class="nav navbar-nav">
-                                                            <li><a href="#">Lớp học</a></li>
-                                                            <li><a href="#">Học viên</a></li>
-                                                            <li><a href="#">Điểm danh</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
                                         </ul>
                                     </div>
                                 </div>

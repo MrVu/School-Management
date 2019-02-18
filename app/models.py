@@ -90,6 +90,7 @@ class Student(db.Model):
     address = db.Column(db.String(128))
     subject_id = db.Column(db.Integer, db.ForeignKey('subjects.id'))
     attendances = db.relationship('Attendance', backref='student', lazy='dynamic')
+    pay_day=db.Column(db.String(64))
 
 
 class Attendance(db.Model):
