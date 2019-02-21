@@ -52,3 +52,9 @@ $(function () {
 	});
 
 })(document);
+  $(function() {
+    $('#toggle-two').bootstrapToggle({
+      on: 'Yes',
+      off: 'No'
+    });
+  })

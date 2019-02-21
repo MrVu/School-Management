@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for, request, sessions,flash
+from flask import render_template, session, redirect, url_for, request, sessions, flash
 from flask_login import login_required, logout_user, login_user, current_user
 from .forms import SubjectsAdd, StudentForm, AttendanceClass, AttendanceForm, AttendanceQuery
 from . import main
@@ -8,15 +8,18 @@ from datetime import datetime
 
 from functools import wraps
 
+
 def admin_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if current_user.role == "admin":
+        if current_user.role.name == "admin":
             return f(*args, **kwargs)
         else:
             flash("You need to be an admin to view this page.")
             return redirect(url_for('main.index'))
+
     return wrap
+
 
 @main.route('/', methods=['GET', 'POST'])
 @login_required
@@ -27,6 +30,7 @@ def index():
 # -----SUBJECTS VIEWS -------#
 @main.route('/admin/addsubjects', methods=['GET', 'POST'])
 @login_required
+@admin_required
 def addSubject():
     add_subject_form = SubjectsAdd()
     users = User.query.all()
@@ -48,6 +52,7 @@ def getSubjects():
 
 @main.route('/admin/subject/remove/<int:id>')
 @login_required
+@admin_required
 def removeSubject(id):
     subject = Subject.query.get(id)
     db.session.delete(subject)
@@ -57,6 +62,7 @@ def removeSubject(id):
 
 @main.route('/admin/subject/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
+@admin_required
 def editSubject(id):
     add_subject_form = SubjectsAdd()
     users = User.query.all()
@@ -76,13 +82,14 @@ def editSubject(id):
 
 # ----- STUDENTS VIEWS -----#
 @main.route('/admin/addstudent', methods=['GET', 'POST'])
-@login_required
+@admin_required
 def studentAdd():
     student_form = StudentForm()
     subjects = Subject.query.all()
     if student_form.validate_on_submit():
         subject = Subject.query.filter_by(name=request.form.get('subject')).first()
         student = Student(name=student_form.name.data, phone_number=student_form.phone_number.data,
+                          pay_day=student_form.pay_day.data,
                           address=student_form.address.data,
                           subject=subject)
         db.session.add(student)
@@ -100,6 +107,7 @@ def getStudents():
 
 @main.route('/admin/student/remove/<int:id>')
 @login_required
+@admin_required
 def removeStudent(id):
     student = Student.query.get(id)
     db.session.delete(student)
@@ -109,6 +117,7 @@ def removeStudent(id):
 
 @main.route('/admin/student/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
+@admin_required
 def editStudent(id):
     student = Student.query.get(id)
     student_form = StudentForm()
@@ -116,12 +125,14 @@ def editStudent(id):
     if student_form.validate_on_submit():
         subject = Subject.query.filter_by(name=request.form.get('subject')).first()
         student.name = student_form.name.data
+        student.pay_day= student_form.pay_day.data
         student.phone_number = student_form.phone_number.data
         student.address = student_form.address.data
         student.subject = subject
         db.session.add(student)
         db.session.commit()
         return redirect(url_for('main.getStudents'))
+    student_form.pay_day.data=student.pay_day
     student_form.name.data = student.name
     student_form.phone_number.data = student.phone_number
     student_form.address.data = student.address
@@ -150,7 +161,8 @@ def newAttendanceQuery(id):
     form = AttendanceForm()
     if form.validate_on_submit():
         for student in students:
-            absent = request.form.get(student.id)
+            absent = form.absent.data
+            print(absent)
             attendance = Attendance(student=student, absent=absent, subject=current_subject)
             db.session.add(attendance)
         db.session.commit()
@@ -176,7 +188,7 @@ def getAttendance(id, raw_date):
     date_plit = raw_date.split('-')
     date_query = datetime(year=int(date_plit[2]), month=int(date_plit[1]), day=int(date_plit[0]))
     print(date_query)
-    attendances = Attendance.query.filter(Attendance.subject_id==id,Attendance.date == date_query).all()
+    attendances = Attendance.query.filter(Attendance.subject_id == id, Attendance.date == date_query).all()
     print(attendances)
     return render_template('admin/attendances.html', attendances=attendances)
 

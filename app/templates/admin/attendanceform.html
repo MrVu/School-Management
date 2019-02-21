@@ -21,7 +21,7 @@
             <td>{{ student.subject.name }}</td>
             <td>
                 <form method="post">
-                <input name="{{ student.id }}" type="checkbox" checked data-toggle="toggle"> Absent
+                    {{form.absent()}}
                 </form>
             </td>
         </tr>

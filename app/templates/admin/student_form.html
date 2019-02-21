@@ -36,6 +36,19 @@
 <!-- Text input-->
 
 <div class="form-group">
+  <label class="col-md-4 control-label">Pay day</label>
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        {{ student_form.pay_day(class="form-control", placeholder="dd-mm-yyyy") }}
+    </div>
+  </div>
+</div>
+
+
+  <!-- Text input-->
+
+<div class="form-group">
   <label class="col-md-4 control-label">Address</label>
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
@@ -49,7 +62,7 @@
 <!-- Select Basic -->
 
 <div class="form-group">
-  <label class="col-md-4 control-label">State</label>
+  <label class="col-md-4 control-label">Class</label>
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
