@@ -159,10 +159,13 @@ def newAttendanceQuery(id):
     students = Student.query.filter_by(subject_id=id).all()
     current_subject = Subject.query.get(id)
     form = AttendanceForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit() and request.method == 'POST':
         for student in students:
-            absent = form.absent.data
-            print(absent)
+            absent = request.form.get(str(student.id))
+            if absent == 'on':
+                absent = False
+            else:
+                absent = True
             attendance = Attendance(student=student, absent=absent, subject=current_subject)
             db.session.add(attendance)
         db.session.commit()

@@ -54,7 +54,15 @@ $(function () {
 })(document);
   $(function() {
     $('#toggle-two').bootstrapToggle({
-      on: 'Yes',
-      off: 'No'
+      True: 'Yes',
+      False: 'No'
     });
   })
+
+$(function () {
+$("#datepicker").datepicker({
+autoclose: true,
+todayHighlight: true
+}).datepicker('update', new Date());
+});
+

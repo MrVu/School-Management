@@ -101,6 +101,13 @@ class Attendance(db.Model):
     absent = db.Column(db.Boolean, default=True)
     subject_id = db.Column(db.Integer, db.ForeignKey('subjects.id'))
 
+    @staticmethod
+    def clear_data():
+        attendances = Attendance.query.all()
+        for attendance in attendances:
+            db.session.delete(attendance)
+        db.session.commit()
+
 
 @login_manager.user_loader
 def load_user(user_id):
