@@ -1,0 +1,53 @@
+{% extends 'admin/admin_base.html' %}
+{% import "_macros.html" as macros %}
+{% block scripts %}
+{{ moment.include_jquery() }}
+{{ moment.include_moment() }}
+{% endblock %}
+{% block content %}
+<ul class="posts">
+    {% for post in posts %}
+    <li class="post">
+        <div class="post-content">
+            <div class="post-date">{{ moment(post.timestamp).fromNow() }}</div>
+            <div class="post-author"><a href="#">{{
+                post.author.username }}</a></div>
+            <div class="post-body">
+                {% if post.body_html %}
+                {{ post.body_html | safe }}
+                {% else %}
+                {{ post.body}}
+                {% endif %}
+            </div>
+            <div class="post-footer">
+                {% if current_user.role.name == 'admin' %}
+                <a href="#">
+                    <span class="label label-danger">Edit [Admin]</span>
+                </a>
+                {% endif %}
+                <a href="#">
+                    <span class="label label-default">Permalink</span>
+                </a>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% if pagination %}
+<div class="row">
+    <div class="col-md-2 center-block" style="float:none">
+        {{ macros.pagination_widget(pagination, 'main.getPosts') }}
+    </div>
+    {% endif %}
+    <form method="post">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ form.body(only_preview=True) }}
+            {{ form.body(class="form-control", rows="7", only_input=True ) }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-success") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

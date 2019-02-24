@@ -2,11 +2,14 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from config import config
 from flask_login import LoginManager
-
+from flask_moment import Moment
+from flask_pagedown import PageDown
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 db = SQLAlchemy()
+moment = Moment()
+page_down = PageDown()
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -15,6 +18,8 @@ def create_app(config_name):
 
     db.init_app(app)
     login_manager.init_app(app)
+    moment.init_app(app)
+    page_down.init_app(app)
 
     # attach routes and custom error pages here
     from .main import main as main_blueprint

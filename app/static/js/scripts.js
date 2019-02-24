@@ -50,14 +50,7 @@ $(function () {
 			LightTableFilter.init();
 		}
 	});
-
-})(document);
-  $(function() {
-    $('#toggle-two').bootstrapToggle({
-      True: 'Yes',
-      False: 'No'
-    });
-  })
+});
 
 $(function () {
 $("#datepicker").datepicker({
@@ -65,4 +58,5 @@ autoclose: true,
 todayHighlight: true
 }).datepicker('update', new Date());
 });
+
 

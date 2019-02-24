@@ -1,8 +1,8 @@
-from flask import render_template, session, redirect, url_for, request, sessions, flash
+from flask import render_template, session, redirect, url_for, request, sessions, flash, current_app
 from flask_login import login_required, logout_user, login_user, current_user
-from .forms import SubjectsAdd, StudentForm, AttendanceClass, AttendanceForm, AttendanceQuery
+from .forms import SubjectsAdd, StudentForm, AttendanceClass, AttendanceForm, AttendanceQuery, PostForm
 from . import main
-from app.models import Subject, User, Student, Attendance
+from app.models import Subject, User, Student, Attendance, Post
 from app import db
 from datetime import datetime
 
@@ -125,14 +125,15 @@ def editStudent(id):
     if student_form.validate_on_submit():
         subject = Subject.query.filter_by(name=request.form.get('subject')).first()
         student.name = student_form.name.data
-        student.pay_day= student_form.pay_day.data
+        student.pay_day = student_form.pay_day.data
         student.phone_number = student_form.phone_number.data
         student.address = student_form.address.data
         student.subject = subject
         db.session.add(student)
         db.session.commit()
         return redirect(url_for('main.getStudents'))
-    student_form.pay_day.data=student.pay_day
+    student_form.pay_day.data = student.pay_day
+    print(student.pay_day)
     student_form.name.data = student.name
     student_form.phone_number.data = student.phone_number
     student_form.address.data = student.address
@@ -142,6 +143,7 @@ def editStudent(id):
 # ----- END STUDENTS VIEWS -----#
 
 # ----- ATTENDANCE VIEWS -----#
+# Need some more view to count student's attendance
 @main.route('/admin/newattendance', methods=['GET', 'POST'])
 @login_required
 def newAttendance():
@@ -190,9 +192,36 @@ def attendanceQuery():
 def getAttendance(id, raw_date):
     date_plit = raw_date.split('-')
     date_query = datetime(year=int(date_plit[2]), month=int(date_plit[1]), day=int(date_plit[0]))
-    print(date_query)
     attendances = Attendance.query.filter(Attendance.subject_id == id, Attendance.date == date_query).all()
-    print(attendances)
     return render_template('admin/attendances.html', attendances=attendances)
 
+
 # ----- END ATTENDANCE VIEWS -----#
+
+# ----- START POST VIEWS -----#
+def newPost():
+    pass
+
+@main.route('/admin/posts', methods=['GET', 'POST'])
+def getPosts():
+    form = PostForm()
+    if form.validate_on_submit() and current_user.role.name=='admin':
+        post = Post(body=form.body.data)
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('main.getPosts'))
+    page = request.args.get('page', 1, type=int)
+    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
+        page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'],
+        error_out=False)
+    posts = pagination.items
+    return render_template('admin/posts.html', posts=posts, pagination=pagination, current_user=current_user, form=form)
+
+
+def deletePost():
+    pass
+
+
+def editPost():
+    pass
+# ----- END POST VIEWS -----#
