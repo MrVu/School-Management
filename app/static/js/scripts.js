@@ -12,7 +12,7 @@ $(function () {
   	});
   });
 
-
+//Table filter
  (function(document) {
 	'use strict';
 
@@ -50,7 +50,9 @@ $(function () {
 			LightTableFilter.init();
 		}
 	});
-});
+})(document);
+// End Table filter
+
 //Datepicker
 $(function () {
 $("#datepicker").datepicker({
