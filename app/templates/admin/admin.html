@@ -1,18 +1,34 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
-    <div class="col-md-10 content">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Dashboard
-            </div>
-            <div class="panel-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
+
+<div class="row text-center">
+    <div class="col-md-3">
+        <div class="counter">
+            <i class="fa fa-user fa-2x"></i>
+            <h2 class="timer count-title count-number" data-to="{{ student_count }}" data-speed="1500"></h2>
+            <p class="count-text "> Students </p>
         </div>
     </div>
+    <div class="col-md-3">
+        <div class="counter">
+            <i class="fas fa-chalkboard-teacher fa-2x"></i>
+            <h2 class="timer count-title count-number" data-to="{{ staff_count }}" data-speed="1500"></h2>
+            <p class="count-text "> Staff </p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="counter">
+            <i class="fas fa-school fa-2x"></i>
+            <h2 class="timer count-title count-number" data-to="{{ classroom_count }}" data-speed="1500"></h2>
+            <p class="count-text ">Class</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="counter">
+            <i class="fas fa-user-graduate fa-2x"></i>
+            <h2 class="timer count-title count-number" data-to="19" data-speed="1500"></h2>
+            <p class="count-text ">Graduated</p>
+        </div>
+    </div>
+</div>
 {% endblock %}

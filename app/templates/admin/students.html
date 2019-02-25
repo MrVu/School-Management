@@ -1,42 +1,44 @@
 {% extends 'admin/admin_base.html' %}
 {% block content %}
-<div class="col-md-10">
-<div class="form-group">
-    <div class="col-md-4">
-    <div class="input-group">
-      <input type="search" class="light-table-filter form-control" data-table="order-table" placeholder="Search">
+<div class="well">
+    <div class="form-group">
+        <div class="col-md-4">
+            <div class="input-group">
+                <input type="search" class="light-table-filter form-control" data-table="order-table"
+                       placeholder="Search">
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-<table class="order-table table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Phone Number</th>
-      <th scope="col">Pay Day</th>
-      <th scope="col">Address</th>
-      <th scope="col">Class</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for student in students %}
-    <tr>
-      <th scope="row">{{student.id}}</th>
-      <td>{{student.name}}</td>
-      <td>{{student.phone_number}}</td>
-        <td>{{student.pay_day }}</td>
-      <td>{{ student.address }}</td>
-      <td>{{ student.subject.name }}</td>
-      <td>
-        <a class="btn btn-danger" href="{{ url_for('main.removeStudent', id=student.id) }}">Delete</a>
-        <a class="btn btn-success" href="{{ url_for('main.editStudent', id=student.id) }}">Edit</a>
-      </td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
-  <a href="{{ url_for('main.studentAdd') }}" class="btn btn-primary">New Student</a>
+    <table class="order-table table table-font">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Pay Day</th>
+            <th scope="col">Address</th>
+            <th scope="col">Class</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+        <tr>
+            <th scope="row">{{student.id}}</th>
+            <td>{{student.name}}</td>
+            <td>{{student.phone_number}}</td>
+            <td>{{student.pay_day }}</td>
+            <td>{{ student.address }}</td>
+            <td>{{ student.subject.name }}</td>
+            <td>
+                <a class="label label-danger" href="{{ url_for('main.removeStudent', id=student.id) }}">Delete</a>
+                <a class="label label-success" href="{{ url_for('main.editStudent', id=student.id) }}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('main.studentAdd') }}" class="btn btn-primary">New Student</a>
 
 </div>
+
 {% endblock %}

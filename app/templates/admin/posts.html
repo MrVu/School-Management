@@ -5,7 +5,7 @@
 {{ moment.include_moment() }}
 {% endblock %}
 {% block content %}
-<ul class="posts">
+<ul class="posts well">
     {% for post in posts %}
     <li class="post">
         <div class="post-content">
@@ -22,7 +22,10 @@
             <div class="post-footer">
                 {% if current_user.role.name == 'admin' %}
                 <a href="#">
-                    <span class="label label-danger">Edit [Admin]</span>
+                    <span class="label label-warning">Edit [Admin]</span>
+                </a>
+                <a href="{{ url_for('main.deletePost', id=post.id) }}">
+                    <span class="label label-danger">Delete [Admin]</span>
                 </a>
                 {% endif %}
                 <a href="#">

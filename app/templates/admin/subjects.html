@@ -1,7 +1,7 @@
 {% extends 'admin/admin_base.html' %}
 {% block content %}
-<div class="col-md-10">
-<table class="table">
+<div class="well">
+<table class="table table-font">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
@@ -16,14 +16,14 @@
       <td>{{subject.name}}</td>
       <td>{{ subject.teacher.username }}</td>
       <td>
-        <a class="btn btn-danger" href=" {{ url_for('main.removeSubject', id=subject.id) }}">Delete</a>
-        <a class="btn btn-success" href="{{ url_for('main.editSubject', id=subject.id) }}">Edit</a>
+        <a class="label label-danger" href=" {{ url_for('main.removeSubject', id=subject.id) }}">Delete</a>
+        <a class="label label-success" href="{{ url_for('main.editSubject', id=subject.id) }}">Edit</a>
       </td>
     </tr>
   {% endfor %}
   </tbody>
 </table>
-  <a href="{{ url_for('main.addSubject') }}" class="btn btn-primary">New Subject</a>
+  <a href="{{ url_for('main.addSubject') }}" class="btn btn-primary btn-sm">New Subject</a>
 
 </div>
 {% endblock %}

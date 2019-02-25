@@ -24,7 +24,11 @@ def admin_required(f):
 @main.route('/', methods=['GET', 'POST'])
 @login_required
 def index():
-    return render_template('admin/admin.html', current_user=current_user)
+    classroom_count = Subject.query.count()
+    student_count = Student.query.count()
+    staff_count = User.query.count()
+    return render_template('admin/admin.html', current_user=current_user, classroom_count=classroom_count,
+                           staff_count=staff_count, student_count=student_count)
 
 
 # -----SUBJECTS VIEWS -------#
@@ -202,10 +206,11 @@ def getAttendance(id, raw_date):
 def newPost():
     pass
 
+
 @main.route('/admin/posts', methods=['GET', 'POST'])
 def getPosts():
     form = PostForm()
-    if form.validate_on_submit() and current_user.role.name=='admin':
+    if form.validate_on_submit() and current_user.role.name == 'admin':
         post = Post(body=form.body.data)
         db.session.add(post)
         db.session.commit()
@@ -217,10 +222,12 @@ def getPosts():
     posts = pagination.items
     return render_template('admin/posts.html', posts=posts, pagination=pagination, current_user=current_user, form=form)
 
-
-def deletePost():
-    pass
-
+@main.route('/admin/posts/<int:id>')
+def deletePost(id):
+    post = Post.query.get(id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('main.getPosts'))
 
 def editPost():
     pass
