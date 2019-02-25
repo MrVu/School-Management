@@ -42,6 +42,7 @@
         {{ macros.pagination_widget(pagination, 'main.getPosts') }}
     </div>
     {% endif %}
+    {% if current_user.role.name == 'admin' %}
     <form method="post">
         {{ form.csrf_token }}
         <div class="form-group">
@@ -52,5 +53,6 @@
             {{ form.submit(class="btn btn-success") }}
         </div>
     </form>
+    {% endif %}
 </div>
 {% endblock %}

@@ -14,12 +14,17 @@
         <div class="form-group">
             {{ login_form.submit(class="btn btn-primary btn-block") }}
         </div>
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
         <div class="clearfix">
             {{ login_form.remember_me }}
             Remember me
             <a href="#" class="pull-right">Forgot Password?</a>
         </div>
     </form>
-    <p class="text-center"><a href="#">Create an Account</a></p>
 </div>
 {% endblock %}
