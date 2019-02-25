@@ -1,0 +1,60 @@
+{% extends 'admin/admin_base.html' %}
+{% block content %}
+<form class="well form-horizontal" action=" " method="post"  id="contact_form">
+<fieldset>
+
+<!-- Form Name -->
+<legend>NEW USERS</legend>
+
+<!-- Text input-->
+{{ form.csrf_token }}
+<div class="form-group">
+  <label class="col-md-4 control-label"> Name</label>
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+    {{ form.username(class="form-control", placeholder="Username") }}
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label"> Email</label>
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+      {{ form.email(class="form-control", placeholder="Email") }}
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label">Password</label>
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        {{ form.password(class="form-control", placeholder="Password") }}
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+      {{ form.submit(class="btn btn-success btb-sm") }}
+  </div>
+</div>
+
+</fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'admin/admin_base.html' %}
+{% block content %}
+<div class="well">
+    <div class="form-group">
+        <div class="col-md-4">
+            <div class="input-group">
+                <input type="search" class="light-table-filter form-control" data-table="order-table"
+                       placeholder="Search">
+            </div>
+        </div>
+    </div>
+    <table class="order-table table table-font">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        <tr>
+            <th scope="row">{{user.id}}</th>
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.role.name }}</td>
+            <td>
+                <a class="label label-danger" href="{{ url_for('main.deleteUser', id=user.id) }}">Delete</a>
+                <a class="label label-success" href="{{ url_for('main.editUser', id = user.id) }}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('main.newUser') }}" class="btn btn-primary">New User</a>
+
+</div>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from flask import render_template, session, redirect, url_for, request, sessions, flash, current_app
 from flask_login import login_required, logout_user, login_user, current_user
-from .forms import SubjectsAdd, StudentForm, AttendanceClass, AttendanceForm, AttendanceQuery, PostForm
+from .forms import SubjectsAdd, StudentForm, AttendanceClass, AttendanceForm, AttendanceQuery, PostForm, NewUser
 from . import main
 from app.models import Subject, User, Student, Attendance, Post
 from app import db
@@ -208,6 +208,7 @@ def newPost():
 
 
 @main.route('/admin/posts', methods=['GET', 'POST'])
+@login_required
 def getPosts():
     form = PostForm()
     if form.validate_on_submit() and current_user.role.name == 'admin':
@@ -222,13 +223,64 @@ def getPosts():
     posts = pagination.items
     return render_template('admin/posts.html', posts=posts, pagination=pagination, current_user=current_user, form=form)
 
+
 @main.route('/admin/posts/<int:id>')
+@login_required
+@admin_required
 def deletePost(id):
     post = Post.query.get(id)
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for('main.getPosts'))
 
+
 def editPost():
     pass
+
+
 # ----- END POST VIEWS -----#
+# ----- START USER VIEWS -----#
+@main.route('/admin/users')
+@login_required
+@admin_required
+def getUsers():
+    users = User.query.all()
+    return render_template('admin/users.html', users=users)
+
+
+@main.route('/admin/users/new', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def newUser():
+    form = NewUser()
+    if form.validate_on_submit() and current_user.role.name == 'admin':
+        user = User(username=form.username.data, email=form.email.data, password=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('main.getUsers'))
+    return render_template('admin/userform.html', form=form)
+
+
+@main.route('/admin/users/delete/<int:id>')
+@login_required
+@admin_required
+def deleteUser(id):
+    user = User.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return redirect(url_for('main.getUsers'))
+
+
+@main.route('/admin/users/edit/<int:id>', methods=['GET', 'POST'])
+def editUser(id):
+    form = NewUser()
+    user = User.query.get(id)
+    if form.validate_on_submit():
+        user.email = form.email.data
+        user.username = form.username.data
+        user.password = form.password.data
+        return redirect(url_for('main.getUsers'))
+    form.username.data = user.username
+    form.email.data = user.email
+    return render_template('admin/userform.html', form = form)
+# ----- END USER VIEWS -----#

@@ -4,6 +4,13 @@ from flask_pagedown.fields import PageDownField
 from wtforms.validators import Required
 
 
+class NewUser(FlaskForm):
+    username = StringField('User Name')
+    email = StringField('Email')
+    password = PasswordField('Password')
+    submit = SubmitField('Submit')
+
+
 class SubjectsAdd(FlaskForm):
     subject_name = StringField('Subject Name', validators=[Required()])
     submit = SubmitField('Add Subject')
