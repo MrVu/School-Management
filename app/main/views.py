@@ -172,7 +172,7 @@ def newAttendanceQuery(id):
                 absent = False
             else:
                 absent = True
-            attendance = Attendance(student=student, absent=absent, subject=current_subject)
+            attendance = Attendance(student=student, absent=absent, subject=current_subject, date= datetime.utcnow().date())
             db.session.add(attendance)
         db.session.commit()
         return redirect(url_for('main.index'))
