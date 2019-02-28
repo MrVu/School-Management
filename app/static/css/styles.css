@@ -554,4 +554,7 @@ padding-right: 40px;
 td, th {
 text-align:center;
 }
+.text-left{
+text-align:left !important;
+}
 /* end Custom */
