@@ -28,7 +28,7 @@
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
     <select name="subject" class="form-control selectpicker" >
-      <option value=" " >Please select student class</option>
+      <option value=" " >Chọn lớp học</option>
         {% for subject in subjects %}
       <option>{{ subject.name }}</option>
       {% endfor %}
@@ -43,8 +43,8 @@
 <div class="form-group">
   <label class="col-md-4 control-label"></label>
   <div class="col-md-4">
-      {{ form.submit(class="btn btn-default btn-sm") }}
-      <a href="{{ url_for('main.newAttendance') }}" class="btn btn-success btn-sm" style="height: 28px;">New</a>
+      {{ form.submit(class="btn btn-default btn-sm", placeholder="Tìm kiếm") }}
+      <a href="{{ url_for('main.newAttendance') }}" class="btn btn-success btn-sm" style="height: 28px;">Thêm phiếu điểm danh</a>
   </div>
 </div>
 

@@ -18,7 +18,7 @@
 </head>
 <body>
 <nav class="navbar navbar-default navbar-static-top">
-    <div class="container-fluid">
+    <div class="container-fluid background-blue374d61">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle navbar-toggle-sidebar collapsed">
@@ -65,7 +65,7 @@
             <div class="absolute-wrapper"></div>
             <!-- Menu -->
             <div class="side-menu">
-                <nav class="navbar navbar-default" role="navigation">
+                <nav class="navbar navbar-default background-grey25" role="navigation">
                     <!-- Main Menu -->
                     <div class="side-menu-container">
                         <ul class="nav navbar-nav">
@@ -85,7 +85,7 @@
                                 <!-- Dropdown level 1 -->
                                 <div id="dropdown-lvl1" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <ul class="nav navbar-nav">
+                                        <ul class="nav navbar-nav background-grey25">
                                             <li><a href="{{ url_for('main.getSubjects') }}">Lớp học</a></li>
                                             <li><a href="{{ url_for('main.getStudents') }}">Học viên</a></li>
                                             <li><a href="{{ url_for('main.attendanceQuery') }}">Điểm danh</a></li>
@@ -95,7 +95,6 @@
                                 </div>
                             </li>
 
-                            <li><a href="#"><span class="glyphicon glyphicon-signal"></span> Yêu cầu hỗ trợ</a></li>
                             <li>
                                 {% for message in get_flashed_messages() %}
                                 <div class="alert alert-warning">

@@ -25,17 +25,17 @@ class StudentForm(FlaskForm):
 
 
 class AttendanceClass(FlaskForm):
-    submit = SubmitField('Choose class')
+    submit = SubmitField('Tiếp tục')
 
 
 class AttendanceForm(FlaskForm):
     absent = BooleanField('Absent')
-    submit = SubmitField('Add')
+    submit = SubmitField('Xác nhận')
 
 
 class AttendanceQuery(FlaskForm):
     date = StringField('Date')
-    submit = SubmitField('Search')
+    submit = SubmitField('Tìm kiếm')
 
 
 class PostForm(FlaskForm):
