@@ -548,4 +548,10 @@ color: white;
 color: white;
 background-color: #676767;
 }
+.absent {
+padding-right: 40px;
+}
+td, th {
+text-align:center;
+}
 /* end Custom */

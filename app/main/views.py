@@ -106,7 +106,7 @@ def studentAdd():
 @login_required
 def getStudents():
     students = Student.query.all()
-    return render_template('admin/students.html', students=students)
+    return render_template('admin/students.html', students=students, Student=Student, Attendance=Attendance)
 
 
 @main.route('/admin/student/remove/<int:id>')
