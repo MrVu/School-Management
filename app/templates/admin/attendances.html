@@ -5,17 +5,17 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Student</th>
-      <th scope="col"> Date</th>
-      <th scope="col">Class</th>
-      <th scope="col">Absent</th>
+      <th scope="col" class="text-left">Tên học viên</th>
+      <th scope="col"> Ngày</th>
+      <th scope="col">Lớp học</th>
+      <th scope="col">Vắng mặt</th>
     </tr>
   </thead>
   <tbody>
   {% for attendance in attendances %}
     <tr>
       <th scope="row">{{attendance.id}}</th>
-      <td>{{attendance.student.name}}</td>
+      <td class="text-left">{{attendance.student.name}}</td>
       <td>{{attendance.date.date()}}</td>
       <td>{{attendance.subject.name}}</td>
       <td>{{attendance.absent}}</td>

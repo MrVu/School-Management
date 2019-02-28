@@ -5,7 +5,7 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Tên lớp</th>
+      <th scope="col" class="text-left">Tên lớp</th>
       <th scope="col">Sĩ số</th>
       <th scope="col">Giáo viên phụ trách</th>
     </tr>
@@ -14,7 +14,7 @@
   {% for subject in subjects %}
     <tr>
       <th scope="row">{{subject.id}}</th>
-      <td>{{subject.name}}</td>
+      <td class="text-left">{{subject.name}}</td>
       <td>{{ Student.query.filter(Student.subject_id== subject.id).count() }}</td>
       <td>{{ subject.teacher.username }}</td>
       <td>

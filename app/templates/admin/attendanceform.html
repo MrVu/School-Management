@@ -6,17 +6,17 @@
             <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Address</th>
-                <th scope="col">Class</th>
+                <th scope="col" class="text-left">Tên học viên</th>
+                <th scope="col">Số điện thoại</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Lớp học</th>
             </tr>
             </thead>
             <tbody>
             {% for student in students %}
             <tr>
                 <th scope="row">{{student.id}}</th>
-                <td>{{student.name}}</td>
+                <td class="text-left">{{student.name}}</td>
                 <td>{{student.phone_number}}</td>
                 <td>{{ student.address }}</td>
                 <td>{{ student.subject.name }}</td>
